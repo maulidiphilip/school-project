@@ -1,9 +1,18 @@
-import { BookOpen, GraduationCap, Clock, Users } from "lucide-react"; // Lucide icons
-import { Link } from "react-router-dom"; // For React Router
-// OR
-// import Link from 'next/link'; // For Next.js
+import { BookOpen, GraduationCap, Clock, Users, Download } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const AcademicsPage = () => {
+  // Function to handle PDF download
+  const handleDownload = () => {
+    const pdfUrl = "/assets/curriculum.pdf";
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "MySchool_Curriculum.pdf"; // Name of the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section className="bg-gray-50 py-20">
       <div className="container mx-auto px-4">
@@ -78,6 +87,27 @@ const AcademicsPage = () => {
           </div>
         </div>
 
+        {/* Curriculum Section */}
+        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Our Curriculum
+            </h2>
+            <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+              Our curriculum is designed to provide a well-rounded education,
+              combining academic rigor with real-world applications. Download
+              the full curriculum to learn more about our programs and courses.
+            </p>
+            <button
+              onClick={handleDownload}
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900 transition-colors duration-300"
+            >
+              <Download className="h-5 w-5 mr-2" /> {/* Download Icon */}
+              Download Curriculum (PDF)
+            </button>
+          </div>
+        </div>
+
         {/* Call-to-Action Section */}
         <div className="bg-gray-900 rounded-lg p-8 md:p-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -89,7 +119,7 @@ const AcademicsPage = () => {
           </p>
           <Link
             to="/enroll" // Replace with your enrollment page route
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 transition-colors duration-300"
+            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-600 bg-white hover:bg-indigo-50 transition-colors duration-300"
           >
             Enroll Now
           </Link>
