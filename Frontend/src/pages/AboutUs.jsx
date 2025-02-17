@@ -30,10 +30,10 @@ const AboutUs = () => {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl mb-4">
               Our Commitment to Excellence
-            </h2>{" "}
+            </h2>
             {/* Subheading */}
             <p className="mt-6 text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
-              Welcome to{" "}
+              Welcome to
               <span className="text-indigo-600 font-semibold transition-colors duration-300 hover:text-indigo-800">
                 MySchool
               </span>
@@ -54,10 +54,8 @@ const AboutUs = () => {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-            {" "}
             {/* Center content */}
             <div className="rounded-full bg-blue-100 p-3 mb-4">
-              {" "}
               {/* Icon container */}
               <Eye className="w-12 h-12 text-blue-500" /> {/* Styled icon */}
             </div>
@@ -65,7 +63,6 @@ const AboutUs = () => {
               Our Vision
             </h2>
             <p className="text-gray-600 text-center">
-              {" "}
               {/* Center text */}
               To be a leading educational institution that fosters academic
               excellence, creativity, and character development, preparing
@@ -74,19 +71,16 @@ const AboutUs = () => {
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center">
-            {" "}
             {/* Center content */}
             <div className="rounded-full bg-green-100 p-3 mb-4">
-              {" "}
               {/* Icon container */}
-              <Target className="w-12 h-12 text-green-500" />{" "}
+              <Target className="w-12 h-12 text-green-500" />
               {/* Styled icon */}
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
               Our Mission
             </h2>
             <p className="text-gray-600 text-center">
-              {" "}
               {/* Center text */}
               At MySchool, we strive to deliver a high-quality, holistic
               education that integrates academic rigor with extracurricular

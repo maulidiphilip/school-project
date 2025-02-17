@@ -1,9 +1,11 @@
 import personIcon from "../assets/patient-avatar.png";
 import backgroundImage from "../assets/hero-bg.png";
-import { Book, Users, Building } from "lucide-react";
+import { Book, Users, Building, History, Target } from "lucide-react";
 import student1 from "../assets/students-2.jpg";
 import student2 from "../assets/students-6.jpg";
 import student3 from "../assets/students-5.jpg";
+import events from "../data/events";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -163,28 +165,56 @@ const Home = () => {
             About Us
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left Column: Mission and History */}
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Our Mission
-              </h3>
-              <p className="text-gray-700 mb-6">
-                At MySchool, our mission is to provide a transformative
-                educational experience that empowers students to become lifelong
-                learners and responsible global citizens.
-              </p>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Our History
-              </h3>
-              <p className="text-gray-700">
-                Founded in 1995, MySchool has been a cornerstone of academic
-                excellence and community engagement for over two decades.
-              </p>
+              {/* Our Mission */}
+              <div className="mb-8">
+                <div className="flex items-center mb-4">
+                  <Target className="h-8 w-8 text-gray-900 mr-3" />{" "}
+                  {/* Icon for Mission */}
+                  <h3 className="text-xl font-bold text-gray-900">
+                    Our Mission
+                  </h3>
+                </div>
+                <p className="text-gray-700">
+                  At MySchool, our mission is to provide a transformative
+                  educational experience that empowers students to become
+                  lifelong learners and responsible global citizens.
+                </p>
+              </div>
+
+              {/* Our History */}
+              <div>
+                <div className="flex items-center mb-4">
+                  <History className="h-8 w-8 text-gray-900 mr-3" />{" "}
+                  {/* Icon for History */}
+                  <h3 className="text-xl font-bold text-gray-900">
+                    Our History
+                  </h3>
+                </div>
+                <p className="text-gray-700">
+                  Founded in 1995, MySchool has been a cornerstone of academic
+                  excellence and community engagement for over two decades.
+                </p>
+              </div>
+
+              {/* Button to About Us Page */}
+              <div className="mt-8">
+                <Link
+                  to="/about" // Replace with your About Us page route
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900 transition-colors duration-300"
+                >
+                  Learn More
+                </Link>
+              </div>
             </div>
+
+            {/* Right Column: Image */}
             <div>
               <img
                 src={student1} // Replace with an appropriate image
                 alt="About Us"
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
               />
             </div>
           </div>
@@ -197,7 +227,28 @@ const Home = () => {
             Our Programs
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+            {/* STEM Education */}
+            <div className="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+              <div className="flex justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-gray-900"
+                >
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                  <path d="M5 3v4" />
+                  <path d="M19 17v4" />
+                  <path d="M3 5h4" />
+                  <path d="M17 19h4" />
+                </svg>
+              </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">
                 STEM Education
               </h3>
@@ -206,7 +257,28 @@ const Home = () => {
                 preparing students for the future.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+
+            {/* Arts & Creativity */}
+            <div className="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+              <div className="flex justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-gray-900"
+                >
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <path d="m7.5 4.27 9 5.15" />
+                  <path d="M3.29 7 12 12l8.71-5" />
+                  <path d="M12 22V12" />
+                </svg>
+              </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">
                 Arts & Creativity
               </h3>
@@ -215,7 +287,28 @@ const Home = () => {
                 self-expression.
               </p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+
+            {/* Sports & Athletics */}
+            <div className="bg-white p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+              <div className="flex justify-center mb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-gray-900"
+                >
+                  <path d="M22 11v1a10 10 0 1 1-9-10" />
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                  <path d="M9 9h.01" />
+                  <path d="M15 9h.01" />
+                </svg>
+              </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">
                 Sports & Athletics
               </h3>
@@ -234,51 +327,32 @@ const Home = () => {
             Upcoming Events
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Annual Science Fair
-              </h3>
-              <p className="text-gray-700 mb-4">
-                Join us on October 15th for our annual science fair showcasing
-                student projects.
-              </p>
-              <a
-                href="#"
-                className="text-gray-900 font-semibold hover:underline"
+            {events.map((event, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 rounded-lg shadow-lg overflow-hidden"
               >
-                Learn More →
-              </a>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Parent-Teacher Conferences
-              </h3>
-              <p className="text-gray-700 mb-4">
-                Scheduled for November 1st. Don't miss this opportunity to
-                discuss your child's progress.
-              </p>
-              <a
-                href="#"
-                className="text-gray-900 font-semibold hover:underline"
-              >
-                Learn More →
-              </a>
-            </div>
-            <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Sports Day
-              </h3>
-              <p className="text-gray-700 mb-4">
-                Mark your calendars for December 10th! A day full of fun and
-                competition.
-              </p>
-              <a
-                href="#"
-                className="text-gray-900 font-semibold hover:underline"
-              >
-                Learn More →
-              </a>
-            </div>
+                {/* Event Image */}
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-56 object-cover"
+                />
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-bold text-gray-900">
+                    {event.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-4">{event.date}</p>
+                  <p className="text-gray-700 mb-6">{event.description}</p>
+                  <a
+                    href="#"
+                    className="inline-block px-6 py-3 rounded-lg text-white bg-gray-900 hover:bg-gray-700 transition duration-300 font-semibold"
+                  >
+                    Learn More →
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -67,7 +67,7 @@ const Footer = () => {
               <Phone size={18} /> +265 991 103 578
             </li>
             <li className="flex items-center justify-center md:justify-start gap-2">
-              <Mail size={18} /> info@myschool.com
+              <Mail size={18} /> philipmaulidi@yahoo.com
             </li>
           </ul>
         </div>
