@@ -118,7 +118,7 @@ const AcademicsPage = () => {
             personal goals. Enroll today!
           </p>
           <Link
-            to="/enroll" // Replace with your enrollment page route
+            to="/admissions"
             className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-600 bg-white hover:bg-indigo-50 transition-colors duration-300"
           >
             Enroll Now

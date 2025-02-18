@@ -327,9 +327,9 @@ const Home = () => {
             Upcoming Events
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {events.map((event, index) => (
+            {events.map((event) => (
               <div
-                key={index}
+                key={event.id}
                 className="bg-gray-50 rounded-lg shadow-lg overflow-hidden"
               >
                 {/* Event Image */}
@@ -344,12 +344,12 @@ const Home = () => {
                   </h3>
                   <p className="text-sm text-gray-500 mb-4">{event.date}</p>
                   <p className="text-gray-700 mb-6">{event.description}</p>
-                  <a
-                    href="#"
+                  <Link
+                    to={`/events/${event.id}`}
                     className="inline-block px-6 py-3 rounded-lg text-white bg-gray-900 hover:bg-gray-700 transition duration-300 font-semibold"
                   >
                     Learn More →
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}

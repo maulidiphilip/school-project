@@ -5,6 +5,9 @@ import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
 import AcademicsPage from "./pages/AcademicsPage";
 import AdmissionsPage from "./pages/AdmissionsPage";
+import ContactPage from "./pages/ContactPage";
+import AuthPage from "./components/AuthPage";
+import EventDetails from "./pages/EventDetails";
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/academics" element={<AcademicsPage />} />
         <Route path="/admissions" element={<AdmissionsPage />} />
-        {/* <Route path="/contact" element={<Contact />} />  */}
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/signup" element={<AuthPage type="signup" />} />
+        <Route path="/login" element={<AuthPage type="login" />} />
+        <Route path="/events/:id" element={<EventDetails />} />
       </Routes>
       <Footer />
     </div>
