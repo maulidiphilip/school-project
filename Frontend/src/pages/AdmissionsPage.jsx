@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   ClipboardList,
   Calendar,
@@ -5,32 +7,36 @@ import {
   Mail,
   Phone,
   Download,
-} from "lucide-react"; // Lucide icons
-import { Link } from "react-router-dom"; // For React Router
-// OR
-// import Link from 'next/link'; // For Next.js
+} from "lucide-react";
 
 const AdmissionsPage = () => {
-  // Function to handle PDF download
   const handleDownloadForm = () => {
-    const pdfUrl = "/path/to/admission-form.pdf"; // Replace with the actual path to your PDF file
-    const link = document.createElement("a");
-    link.href = pdfUrl;
-    link.download = "MySchool_Admission_Form.pdf"; // Name of the downloaded file
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const pdfUrl = "/assets/admission-form.pdf";
+    window.open(pdfUrl, "_blank", "noopener,noreferrer") ||
+      Object.assign(document.createElement("a"), {
+        href: pdfUrl,
+        download: "MySchool_Admission_Form.pdf",
+      }).click();
   };
 
   return (
-    <section className="bg-gray-50 py-20">
-      <div className="container mx-auto px-4">
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      aria-labelledby="admissions-header"
+      className="bg-gray-50 pt-24 sm:pt-28 pb-12 px-4 sm:px-6"
+    >
+      <div className="max-w-7xl mx-auto">
         {/* Page Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <div className="text-center mt-6 sm:mt-8 mb-12">
+          <h1
+            id="admissions-header"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+          >
             Admissions
           </h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto">
             Join MySchool and become part of a community dedicated to academic
             excellence, innovation, and personal growth. Start your journey with
             us today!
@@ -38,102 +44,97 @@ const AdmissionsPage = () => {
         </div>
 
         {/* Admission Process Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20"
+        >
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
             Admission Process
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Step 1: Application */}
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <ClipboardList className="h-12 w-12 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Step 1: Application
-              </h3>
-              <p className="text-gray-700 mb-6">
-                Submit a completed application form along with the required
-                documents.
-              </p>
-              {/* Download Button */}
-              <button
-                onClick={handleDownloadForm}
-                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 mb-4"
+            {[
+              {
+                title: "Step 1: Application",
+                icon: ClipboardList,
+                description: "Submit a completed application form along with the required documents.",
+                action: (
+                  <div>
+                    <button
+                      onClick={handleDownloadForm}
+                      aria-label="Download MySchool Admission Form PDF"
+                      className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 transition-colors duration-300 mb-4"
+                    >
+                      <Download className="h-5 w-5 mr-2" />
+                      Download Form
+                    </button>
+                    <div className="flex items-center gap-2 bg-gray-50 p-4 rounded-lg shadow-md">
+                      <Mail className="text-gray-900 w-5 h-5" />
+                      <p className="text-base text-gray-700">
+                        Submit the completed form to:{" "}
+                        <a
+                          href="mailto:admissions@myschool.mw"
+                          className="text-gray-900 font-semibold hover:underline transition duration-200"
+                        >
+                          admissions@myschool.mw
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                ),
+              },
+              {
+                title: "Step 2: Assessment",
+                icon: Calendar,
+                description: "Attend an assessment or interview to evaluate your readiness for our programs.",
+              },
+              {
+                title: "Step 3: Decision",
+                icon: Mail,
+                description: "Receive an admission decision within 2 weeks of your assessment.",
+              },
+              {
+                title: "Step 4: Enrollment",
+                icon: DollarSign,
+                description: "Complete the enrollment process and pay the school fees to secure your spot.",
+              },
+            ].map((step, index) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center"
               >
-                <Download className="h-5 w-5 mr-2" /> {/* Download Icon */}
-                Download Form
-              </button>
-              {/* Submission Instructions */}
-              <div className="flex items-center gap-2 bg-gray-100 p-4 rounded-lg shadow-md">
-                {/* Mail Icon */}
-                <Mail className="text-indigo-600 w-5 h-5" />
-
-                {/* Text Content */}
-                <p className="text-base text-gray-700">
-                  Submit the completed form to:{" "}
-                  <a
-                    href="mailto:admissions@myschool.mw"
-                    className="text-indigo-600 font-semibold hover:underline transition duration-200"
-                  >
-                    admissions@myschool.mw
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            {/* Step 2: Assessment */}
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <Calendar className="h-12 w-12 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Step 2: Assessment
-              </h3>
-              <p className="text-gray-700">
-                Attend an assessment or interview to evaluate your readiness for
-                our programs.
-              </p>
-            </div>
-
-            {/* Step 3: Admission Decision */}
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <Mail className="h-12 w-12 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Step 3: Decision
-              </h3>
-              <p className="text-gray-700">
-                Receive an admission decision within 2 weeks of your assessment.
-              </p>
-            </div>
-
-            {/* Step 4: Enrollment */}
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <DollarSign className="h-12 w-12 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
-                Step 4: Enrollment
-              </h3>
-              <p className="text-gray-700">
-                Complete the enrollment process and pay the school fees to
-                secure your spot.
-              </p>
-            </div>
+                <div className="flex justify-center mb-6">
+                  <step.icon className="h-10 w-10 sm:h-12 sm:w-12 text-gray-900" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                  {step.title}
+                </h3>
+                <p className="text-gray-700 mb-6">{step.description}</p>
+                {step.action}
+              </motion.div>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* School Fees Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20"
+        >
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
             School Fees
           </h2>
           <div className="text-center">
-            <p className="text-xl text-gray-700 mb-6">
+            <p className="text-lg sm:text-xl text-gray-700 mb-6">
               The annual school fees at MySchool are:
             </p>
-            <p className="text-4xl font-bold text-indigo-600 mb-8">
+            <p className="text-4xl font-bold text-gray-900 mb-8">
               MWK300,000.00
             </p>
             <p className="text-gray-700">
@@ -141,52 +142,73 @@ const AdmissionsPage = () => {
               facilities. Payment plans are available upon request.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Contact Information Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-20"
+        >
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
             Contact Us
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Email */}
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <Mail className="h-12 w-12 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Email</h3>
-              <p className="text-gray-700">admissions@myschool.mw</p>
-            </div>
-
-            {/* Phone */}
-            <div className="text-center">
-              <div className="flex justify-center mb-6">
-                <Phone className="h-12 w-12 text-gray-600" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Phone</h3>
-              <p className="text-gray-700">+265 123 456 789</p>
-            </div>
+            {[
+              {
+                title: "Email",
+                icon: Mail,
+                value: "admissions@myschool.mw",
+              },
+              {
+                title: "Phone",
+                icon: Phone,
+                value: "+265 123 456 789",
+              },
+            ].map((contact, index) => (
+              <motion.div
+                key={contact.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: (index + 4) * 0.1 }}
+                className="text-center"
+              >
+                <div className="flex justify-center mb-6">
+                  <contact.icon className="h-10 w-10 sm:h-12 sm:w-12 text-gray-900" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                  {contact.title}
+                </h3>
+                <p className="text-gray-700">{contact.value}</p>
+              </motion.div>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Call-to-Action Section */}
-        <div className="bg-gray-900 rounded-lg p-8 md:p-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-gray-900 rounded-lg p-8 md:p-12 text-center"
+        >
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
             Ready to Apply?
           </h2>
-          <p className="text-xl text-indigo-100 mb-8">
+          <p className="text-lg sm:text-xl text-gray-200 mb-8">
             Start your application today and take the first step toward a
             brighter future at MySchool.
           </p>
           <Link
-            to="/apply" // Replace with your application page route
-            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-gray-600 bg-white hover:bg-indigo-50 transition-colors duration-300"
+            to="/admissions"
+            className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900 transition-colors duration-300"
           >
             Apply Now
           </Link>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -8,10 +8,12 @@ import AdmissionsPage from "./pages/AdmissionsPage";
 import ContactPage from "./pages/ContactPage";
 import AuthPage from "./components/AuthPage";
 import EventDetails from "./pages/EventDetails";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
