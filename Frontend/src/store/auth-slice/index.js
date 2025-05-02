@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:3000"; 
-// const API_URL = "https://school-project-server-llts.onrender.com"; 
+// const API_URL = "http://localhost:3000"; 
+const API_URL = "https://school-project-server-llts.onrender.com"; 
 
 export const register = createAsyncThunk(
   "auth/register",
