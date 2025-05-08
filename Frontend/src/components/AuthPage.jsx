@@ -22,7 +22,11 @@ const InputField = ({ label, icon: Icon, ...props }) => (
 );
 
 const AuthPage = ({ type }) => {
-  const [formData, setFormData] = useState({ email: "", password: "", name: "" });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading } = useSelector((state) => state.auth);
@@ -39,7 +43,11 @@ const AuthPage = ({ type }) => {
     const action = type === "signup" ? register : login;
     const payload =
       type === "signup"
-        ? { userName: formData.name, email: formData.email, password: formData.password }
+        ? {
+            userName: formData.name,
+            email: formData.email,
+            password: formData.password,
+          }
         : { email: formData.email, password: formData.password };
 
     const result = await dispatch(action(payload));
@@ -53,7 +61,12 @@ const AuthPage = ({ type }) => {
       } else {
         const role = result.payload.user.role;
         console.log("User role:", role);
-        const destination = role === "admin" ? "/admin/dashboard" : "/dashboard";
+        const destination =
+          role === "admin"
+            ? "/admin/dashboard"
+            : role === "teacher"
+            ? "/teacher/dashboard"
+            : "/dashboard";
         console.log("Navigating to:", destination);
         navigate(destination);
       }

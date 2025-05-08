@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "./store/auth-slice";
 import { Loader2 } from "lucide-react";
+import TeacherDashboard from "./components/Teacher-View/index.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -71,6 +72,14 @@ function App() {
             <AdminRoute>
               <AdminDashboard />
             </AdminRoute>
+          }
+        />
+        <Route
+          path="/teacher/dashboard"
+          element={
+            <ProtectedRoute>
+              <TeacherDashboard />
+            </ProtectedRoute>
           }
         />
       </Routes>
