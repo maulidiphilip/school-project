@@ -2,19 +2,16 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  LogOut,
-  Users,
-  Calendar,
-  Bell,
-  FileText,
-  BarChart2,
-  Settings,
-  Menu,
-  X,
-} from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { logout } from "../../store/auth-slice";
+import { sections } from "./Sections/sections";
+import UserManagement from "./Sections/UserManagement";
+import EventsCalendar from "./Sections/EventsCalendar";
+import Announcements from "./Sections/Announcements";
+import ContentManagement from "./Sections/ContentManagement";
+import Analytics from "./Sections/Analytics";
+import Settings from "./Sections/Settings";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -44,24 +41,22 @@ const AdminDashboard = () => {
 
   if (!user) return null;
 
-  const sections = [
-    { id: "users", label: "User Management", icon: Users },
-    { id: "events", label: "Events Calendar", icon: Calendar },
-    { id: "announcements", label: "Announcements", icon: Bell },
-    { id: "content", label: "Content Management", icon: FileText },
-    { id: "analytics", label: "Analytics", icon: BarChart2 },
-    { id: "settings", label: "Settings", icon: Settings },
-  ];
-
   const renderSection = () => {
     switch (activeSection) {
-      case "users": return <UserManagement />;
-      case "events": return <EventsCalendar />;
-      case "announcements": return <Announcements />;
-      case "content": return <ContentManagement />;
-      case "analytics": return <Analytics />;
-      case "settings": return <Setting />;
-      default: return <div>Select a section</div>;
+      case "users":
+        return <UserManagement />;
+      case "events":
+        return <EventsCalendar />;
+      case "announcements":
+        return <Announcements />;
+      case "content":
+        return <ContentManagement />;
+      case "analytics":
+        return <Analytics />;
+      case "settings":
+        return <Settings />;
+      default:
+        return <div>Select a section</div>;
     }
   };
 
@@ -96,7 +91,6 @@ const AdminDashboard = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar */}
           <AnimatePresence>
             {showSidebar && (
               <motion.div
@@ -115,10 +109,10 @@ const AdminDashboard = () => {
                         if (!isDesktop) setShowSidebar(false);
                       }}
                       className={`w-full flex items-center px-4 py-2 text-left rounded-xl transition font-medium ${
-    activeSection === section.id
-      ? "bg-indigo-600 text-white shadow"
-      : "text-gray-700 hover:bg-indigo-50"
-  }`}
+                        activeSection === section.id
+                          ? "bg-indigo-600 text-white shadow"
+                          : "text-gray-700 hover:bg-indigo-50"
+                      }`}
                     >
                       <section.icon className="h-5 w-5 mr-3" />
                       {section.label}
@@ -129,7 +123,6 @@ const AdminDashboard = () => {
             )}
           </AnimatePresence>
 
-          {/* Main Content */}
           <div className="flex-1 bg-white rounded-2xl shadow-lg p-8 overflow-x-auto">
             {renderSection()}
           </div>
@@ -138,47 +131,5 @@ const AdminDashboard = () => {
     </motion.section>
   );
 };
-
-const UserManagement = () => (
-  <div>
-    <h3 className="text-2xl font-semibold text-indigo-800 mb-4">User Management</h3>
-    <p className="text-gray-600">View, edit, or delete user accounts.</p>
-  </div>
-);
-
-const EventsCalendar = () => (
-  <div>
-    <h3 className="text-2xl font-semibold text-indigo-800 mb-4">Events Calendar</h3>
-    <p className="text-gray-600">Manage school events.</p>
-  </div>
-);
-
-const Announcements = () => (
-  <div>
-    <h3 className="text-2xl font-semibold text-indigo-800 mb-4">Announcements</h3>
-    <p className="text-gray-600">Post school announcements.</p>
-  </div>
-);
-
-const ContentManagement = () => (
-  <div>
-    <h3 className="text-2xl font-semibold text-indigo-800 mb-4">Content Management</h3>
-    <p className="text-gray-600">Update website content.</p>
-  </div>
-);
-
-const Analytics = () => (
-  <div>
-    <h3 className="text-2xl font-semibold text-indigo-800 mb-4">Analytics</h3>
-    <p className="text-gray-600">View website and event analytics.</p>
-  </div>
-);
-
-const Setting = () => (
-  <div>
-    <h3 className="text-2xl font-semibold text-indigo-800 mb-4">Settings</h3>
-    <p className="text-gray-600">Configure school details.</p>
-  </div>
-);
 
 export default AdminDashboard;

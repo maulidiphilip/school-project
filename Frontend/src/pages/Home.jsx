@@ -1,10 +1,13 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAnnouncements, resetAnnouncementError } from "../store/admin-slice/announcementSlice"; 
+import toast from "react-hot-toast";
 import personIcon from "../assets/patient-avatar.png";
 import backgroundImage from "../assets/hero-bg.png";
 import { Book, Users, Building, History, Target, Trophy, Paintbrush, Brain } from "lucide-react";
 import student1 from "../assets/students-2.jpg";
 import student2 from "../assets/students-6.jpg";
 import student3 from "../assets/students-5.jpg";
-import events from "../data/events";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -62,35 +65,25 @@ const programs = [
   },
 ];
 
-// const events = [
-//   {
-//     id: "1",
-//     title: "Open House",
-//     date: "May 10, 2025",
-//     description: "Join us to explore our campus and meet our faculty.",
-//     image: event1,
-//   },
-//   {
-//     id: "2",
-//     title: "Science Fair",
-//     date: "June 15, 2025",
-//     description: "Showcasing student innovations in STEM.",
-//     image: event2,
-//   },
-//   {
-//     id: "3",
-//     title: "Art Exhibition",
-//     date: "July 20, 2025",
-//     description: "Celebrating creativity with student artworks.",
-//     image: event3,
-//   },
-// ];
-
 const Home = () => {
+  const dispatch = useDispatch();
+  const { items: announcements, isLoading, error } = useSelector((state) => state.announcements);
+
+  useEffect(() => {
+    dispatch(fetchAnnouncements());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(resetAnnouncementError());
+    }
+  }, [error, dispatch]);
+
   return (
     <main>
-       {/* Hero Section */}
-       <motion.section
+      {/* Hero Section */}
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -140,7 +133,6 @@ const Home = () => {
         </div>
       </motion.section>
 
-      
       {/* Features Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -403,40 +395,48 @@ const Home = () => {
           >
             Upcoming Events
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {events.map((event, index) => (
-              <motion.article
-                key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-gray-50 rounded-lg shadow-lg overflow-hidden"
-                aria-label={event.title}
-              >
-                <img
-                  src={event.image}
-                  alt={`Event: ${event.title} on ${event.date}`}
-                  className="w-full h-40 sm:h-56 object-cover"
-                  loading="lazy"
-                />
-                <div className="p-6 text-center">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900">
-                    {event.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 mb-4">{event.date}</p>
-                  <p className="text-gray-700 mb-6">{event.description}</p>
-                  <motion.div whileHover={{ scale: 1.05 }}>
-                    <Link
-                      to={`/events/${event.id}`}
-                      className="inline-block px-6 py-3 rounded-lg text-white bg-gray-900 hover:bg-gray-700 transition duration-300 font-semibold"
-                    >
-                      Learn More →
-                    </Link>
-                  </motion.div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+          {isLoading && (
+            <p className="text-center text-gray-600">Loading events...</p>
+          )}
+          {!isLoading && announcements.length === 0 && (
+            <p className="text-center text-gray-600">No upcoming events available.</p>
+          )}
+          {!isLoading && announcements.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              {announcements.map((event, index) => (
+                <motion.article
+                  key={event.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="bg-gray-50 rounded-lg shadow-lg overflow-hidden"
+                  aria-label={event.title}
+                >
+                  <img
+                    src={event.image || student1} 
+                    alt={`Event: ${event.title} on ${event.date}`}
+                    className="w-full h-40 sm:h-56 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-6 text-center">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+                      {event.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-4">{event.date}</p>
+                    <p className="text-gray-700 mb-6">{event.description}</p>
+                    <motion.div whileHover={{ scale: 1.05 }}>
+                      <Link
+                        to={`/events/${event.id}`}
+                        className="inline-block px-6 py-3 rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition duration-300 font-semibold"
+                      >
+                        Learn More →
+                      </Link>
+                    </motion.div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          )}
         </div>
       </motion.section>
 
@@ -468,7 +468,6 @@ const Home = () => {
           </Link>
         </motion.div>
       </section>
-
     </main>
   );
 };

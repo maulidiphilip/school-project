@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const authRoute = require("./routes/auth/index.js");
+const announcementRoute = require("./routes/admin-routes/announcements/index.js");
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ app.use(
 
 // for authentication
 app.use("/api/auth", authRoute);
+// for announcements
+app.use("/api/announcements", announcementRoute);
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
