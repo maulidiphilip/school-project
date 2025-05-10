@@ -1,10 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAnnouncements, resetAnnouncementError } from "../store/admin-slice/announcementSlice"; 
+import {
+  fetchAnnouncements,
+  resetAnnouncementError,
+} from "../store/admin-slice/announcementSlice";
 import toast from "react-hot-toast";
 import personIcon from "../assets/patient-avatar.png";
 import backgroundImage from "../assets/hero-bg.png";
-import { Book, Users, Building, History, Target, Trophy, Paintbrush, Brain } from "lucide-react";
+import {
+  Book,
+  Users,
+  Building,
+  History,
+  Target,
+  Trophy,
+  Paintbrush,
+  Brain,
+} from "lucide-react";
 import student1 from "../assets/students-2.jpg";
 import student2 from "../assets/students-6.jpg";
 import student3 from "../assets/students-5.jpg";
@@ -51,23 +63,30 @@ const programs = [
   {
     title: "STEM Education",
     icon: Brain,
-    description: "Our STEM programs encourage innovation and critical thinking, preparing students for the future.",
+    description:
+      "Our STEM programs encourage innovation and critical thinking, preparing students for the future.",
   },
   {
     title: "Arts & Creativity",
     icon: Paintbrush,
-    description: "We offer a wide range of arts programs to nurture creativity and self-expression.",
+    description:
+      "We offer a wide range of arts programs to nurture creativity and self-expression.",
   },
   {
     title: "Sports & Athletics",
     icon: Trophy,
-    description: "Our sports programs promote teamwork, discipline, and physical fitness.",
+    description:
+      "Our sports programs promote teamwork, discipline, and physical fitness.",
   },
 ];
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { items: announcements, isLoading, error } = useSelector((state) => state.announcements);
+  const {
+    items: announcements,
+    isLoading,
+    error,
+  } = useSelector((state) => state.announcements);
 
   useEffect(() => {
     dispatch(fetchAnnouncements());
@@ -219,7 +238,10 @@ const Home = () => {
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mb-4 object-cover"
                   loading="lazy"
                 />
-                <p id={`testimonial-${index}`} className="text-gray-700 italic mb-4">
+                <p
+                  id={`testimonial-${index}`}
+                  className="text-gray-700 italic mb-4"
+                >
                   {testimonial.quote}
                 </p>
                 <p className="text-gray-900 font-semibold">
@@ -399,7 +421,9 @@ const Home = () => {
             <p className="text-center text-gray-600">Loading events...</p>
           )}
           {!isLoading && announcements.length === 0 && (
-            <p className="text-center text-gray-600">No upcoming events available.</p>
+            <p className="text-center text-gray-600">
+              No upcoming events available.
+            </p>
           )}
           {!isLoading && announcements.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
@@ -412,12 +436,14 @@ const Home = () => {
                   className="bg-gray-50 rounded-lg shadow-lg overflow-hidden"
                   aria-label={event.title}
                 >
-                  <img
-                    src={event.image || student1} 
-                    alt={`Event: ${event.title} on ${event.date}`}
-                    className="w-full h-40 sm:h-56 object-cover"
-                    loading="lazy"
-                  />
+                  <div className="relative w-full h-40 sm:h-56">
+                    <img
+                      src={event.image || student1}
+                      alt={`Event: ${event.title} on ${event.date}`}
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="p-6 text-center">
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900">
                       {event.title}
@@ -441,10 +467,7 @@ const Home = () => {
       </motion.section>
 
       {/* Call-to-Action Section */}
-      <section
-        aria-labelledby="cta-headline"
-        className="bg-gray-900 py-20"
-      >
+      <section aria-labelledby="cta-headline" className="bg-gray-900 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

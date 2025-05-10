@@ -1,28 +1,49 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
+import { fetchAnnouncements, resetAnnouncementError } from "../store/admin-slice/announcementSlice";
+import toast from "react-hot-toast";
 import { motion } from "framer-motion";
-import events from "../data/events";
+import { ChevronLeft } from "lucide-react";
+import student1 from "../assets/students-2.jpg";
 
 const EventDetails = () => {
   const { id } = useParams();
-  const event = events.find((e) => e.id === id);
+  const dispatch = useDispatch();
+  const { items: announcements, isLoading, error } = useSelector((state) => state.announcements);
+
+  useEffect(() => {
+    dispatch(fetchAnnouncements());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(resetAnnouncementError());
+    }
+  }, [error, dispatch]);
+
+  const event = announcements.find((announcement) => announcement.id === id);
+
+  if (isLoading) {
+    return (
+      <div className="text-center text-gray-600 pt-20">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   if (!event) {
     return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        role="alert"
-        aria-labelledby="not-found-header"
-        className="flex flex-col items-center justify-center min-h-screen bg-gray-50"
-      >
-        <h2 id="not-found-header" className="text-3xl font-bold text-gray-900">
-          Event Not Found
-        </h2>
-        <Link to="/" className="mt-4 text-gray-900 hover:underline">
-          Go Back to Events
+      <div className="text-center text-gray-600 pt-20">
+        <p>Event not found.</p>
+        <Link
+          to="/"
+          className="inline-block mt-4 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-semibold"
+        >
+          Back to Home
         </Link>
-      </motion.div>
+      </div>
     );
   }
 
@@ -31,39 +52,66 @@ const EventDetails = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      aria-labelledby="event-header"
-      className="min-h-screen bg-gray-50 pt-24 sm:pt-28 pb-12 px-4 sm:px-6"
+      className="pt-20 pb-12 px-4 sm:px-6 max-w-5xl mx-auto"
     >
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-6 sm:mt-8"
-        >
-          <img
-            src={event.image}
-            alt={event.title}
-            aria-describedby="event-description"
-            className="w-full h-64 sm:h-80 object-cover rounded-lg shadow-lg mb-6"
-          />
-          <h1
-            id="event-header"
-            className="text-3xl sm:text-4xl font-bold text-gray-900"
-          >
+      {/* Breadcrumb Navigation */}
+      <nav className="mb-6">
+        <ol className="flex items-center space-x-2 text-sm text-gray-600">
+          <li>
+            <Link to="/" className="hover:text-indigo-600 transition">
+              Home
+            </Link>
+          </li>
+          <li className="text-gray-400">/</li>
+          <li>
+            <Link to="/" className="hover:text-indigo-600 transition">
+              Events
+            </Link>
+          </li>
+          <li className="text-gray-400">/</li>
+          <li className="text-gray-900 truncate max-w-xs">{event.title}</li>
+        </ol>
+      </nav>
+
+      {/* Main Content */}
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        {/* Header */}
+        <div className="p-6 sm:p-8 bg-indigo-50">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
             {event.title}
           </h1>
-          <p className="text-gray-500 text-base sm:text-lg mt-2">{event.date}</p>
-          <p id="event-description" className="text-gray-700 mt-6">
-            {event.details}
+          <p className="text-sm text-gray-500 mt-2">{event.date}</p>
+        </div>
+
+        {/* Image */}
+        <div className="w-full">
+          <img
+            src={event.image || student1}
+            alt={`Event: ${event.title}`}
+            className="w-full h-48 sm:h-64 md:h-96 object-contain bg-gray-100"
+            loading="lazy"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-6 sm:p-8">
+          <p className="text-gray-700 text-base sm:text-lg mb-4">{event.description}</p>
+          <p className="text-gray-700 text-base sm:text-lg">{event.details}</p>
+          <p className="text-sm text-gray-500 mt-4">
+            Posted on: {new Date(event.createdAt).toLocaleDateString()}
           </p>
+        </div>
+
+        {/* Navigation Footer */}
+        <div className="p-6 sm:p-8 bg-indigo-50 flex justify-between items-center">
           <Link
             to="/"
-            className="inline-block mt-6 px-6 py-3 rounded-lg text-white bg-gray-900 hover:bg-gray-700 transition duration-300 font-semibold"
+            className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-semibold text-sm sm:text-base"
           >
-            ← Go Back
+            <ChevronLeft className="w-5 h-5 mr-2" />
+            Back to Events
           </Link>
-        </motion.div>
+        </div>
       </div>
     </motion.section>
   );

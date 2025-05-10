@@ -51,7 +51,7 @@ function App() {
         <Route path="/academics" element={<AcademicsPage />} />
         <Route path="/admissions" element={<AdmissionsPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/events/:id" element={<EventDetails />} />
+        <Route  path="/events/:id" element={<EventDetails />} />
 
         {/* Auth Routes */}
         <Route path="/signup" element={<AuthPage type="signup" />} />
