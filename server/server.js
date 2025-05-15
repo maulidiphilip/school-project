@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 
 const authRoute = require("./routes/auth/index.js");
 const announcementRoute = require("./routes/admin-routes/announcements/index.js");
+const userRoute = require("./routes/admin-routes/users/index.js");
 
 dotenv.config();
 
@@ -31,6 +32,8 @@ app.use(
 app.use("/api/auth", authRoute);
 // for announcements
 app.use("/api/announcements", announcementRoute);
+// for users
+app.use("/api/users", userRoute);
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

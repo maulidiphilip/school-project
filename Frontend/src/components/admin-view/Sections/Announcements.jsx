@@ -80,6 +80,7 @@ export default function Announcements() {
       setIsEditModalOpen(false);
     } catch (err) {
       // Error handled via toast in useEffect
+      toast.error(err.message);
     }
   };
 
@@ -93,7 +94,7 @@ export default function Announcements() {
         await dispatch(deleteAnnouncement(id)).unwrap();
         toast.success("Announcement deleted!");
       } catch (err) {
-        toast.error("Failed to delete announcement");
+        toast.error(err.message);
       }
     }
   };
